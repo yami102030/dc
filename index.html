@@ -1033,28 +1033,12 @@
                                             <input type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700" placeholder="請輸入姓名" />
                                         </div>
                                         
-                                        {isAdmin && (
-                                            <div className="space-y-1.5">
-                                                <label className="text-xs font-bold text-slate-500 uppercase">群組 ID <span className="text-slate-400 font-normal">(選填)</span></label>
-                                                <input type="text" value={formData.group_id} onChange={e => setFormData({...formData, group_id: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700 uppercase" placeholder="例如：FA" />
-                                            </div>
-                                        )}
-
                                         <div className="space-y-1.5">
                                             <label className="text-xs font-bold text-slate-500 uppercase">服事意願</label>
                                             <select value={formData.availability_status} onChange={e => setFormData({...formData, availability_status: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
                                                 {STATUS_OPTIONS.filter(opt => isAdmin || (opt !== '安息季' && opt !== '一季一次')).map(opt => <option key={opt} value={opt}>{opt}</option>)}
                                             </select>
                                         </div>
-
-                                        {isAdmin && (
-                                            <div className="space-y-1.5">
-                                                <label className="text-xs font-bold text-slate-500 uppercase">同日二堂服事 <span className="text-slate-400 font-normal">(選填)</span></label>
-                                                <select value={formData.dual_service_pref} onChange={e => setFormData({...formData, dual_service_pref: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
-                                                    <option value="0">無</option><option value="1">二堂同崗</option><option value="2">二堂異崗</option>
-                                                </select>
-                                            </div>
-                                        )}
 
                                         <div className="space-y-1.5">
                                             <label className="text-xs font-bold text-slate-500 uppercase">堂別</label>
@@ -1064,12 +1048,26 @@
                                         </div>
 
                                         {isAdmin && (
-                                            <div className="space-y-1.5">
-                                                <label className="text-xs font-bold text-slate-500 uppercase">新朋友關懷設定 <span className="text-slate-400 font-normal">(選填)</span></label>
-                                                <select value={formData.newcomer_rule === null ? '' : formData.newcomer_rule} onChange={e => setFormData({...formData, newcomer_rule: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
-                                                    <option value="">預設(正常排班)</option><option value="1">主責</option><option value="2">禁排第二週</option><option value="3">主責 ＋ 禁排第二週</option>
-                                                </select>
-                                            </div>
+                                            <>
+                                                <div className="space-y-1.5">
+                                                    <label className="text-xs font-bold text-slate-500 uppercase">群組 ID <span className="text-slate-400 font-normal">(選填)</span></label>
+                                                    <input type="text" value={formData.group_id} onChange={e => setFormData({...formData, group_id: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700 uppercase" placeholder="例如：FA" />
+                                                </div>
+
+                                                <div className="space-y-1.5">
+                                                    <label className="text-xs font-bold text-slate-500 uppercase">同日二堂服事 <span className="text-slate-400 font-normal">(選填)</span></label>
+                                                    <select value={formData.dual_service_pref} onChange={e => setFormData({...formData, dual_service_pref: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
+                                                        <option value="0">無</option><option value="1">二堂同崗</option><option value="2">二堂異崗</option>
+                                                    </select>
+                                                </div>
+
+                                                <div className="space-y-1.5">
+                                                    <label className="text-xs font-bold text-slate-500 uppercase">新朋友關懷設定 <span className="text-slate-400 font-normal">(選填)</span></label>
+                                                    <select value={formData.newcomer_rule === null ? '' : formData.newcomer_rule} onChange={e => setFormData({...formData, newcomer_rule: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
+                                                        <option value="">預設(正常排班)</option><option value="1">主責</option><option value="2">禁排第二週</option><option value="3">主責 ＋ 禁排第二週</option>
+                                                    </select>
+                                                </div>
+                                            </>
                                         )}
                                     </div>
 
