@@ -832,7 +832,7 @@
                                 <Users size={20} />
                             </div>
                             <h1 className="text-lg font-black text-slate-800">
-                                TBC 資料中心
+                                TBC同工資料中心
                             </h1>
                         </div>
                         
@@ -910,8 +910,13 @@
                                     placeholder="搜尋姓名、群組或崗位..." 
                                     value={searchTerm}
                                     onChange={e => setSearchTerm(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-2.5 bg-transparent outline-none font-bold text-slate-700 text-sm"
+                                    className="w-full pl-10 pr-10 py-2.5 bg-transparent outline-none font-bold text-slate-700 text-sm"
                                 />
+                                {searchTerm && (
+                                    <button onClick={() => setSearchTerm('')} className="absolute right-4 text-slate-400 hover:text-slate-600 transition-colors p-1" title="清除搜尋">
+                                        <X size={18} />
+                                    </button>
+                                )}
                             </div>
                         )}
 
@@ -1042,6 +1047,15 @@
                                             </select>
                                         </div>
 
+                                        {isAdmin && (
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-slate-500 uppercase">同日二堂服事 <span className="text-slate-400 font-normal">(選填)</span></label>
+                                                <select value={formData.dual_service_pref} onChange={e => setFormData({...formData, dual_service_pref: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
+                                                    <option value="0">無</option><option value="1">二堂同崗</option><option value="2">二堂異崗</option>
+                                                </select>
+                                            </div>
+                                        )}
+
                                         <div className="space-y-1.5">
                                             <label className="text-xs font-bold text-slate-500 uppercase">堂別</label>
                                             <select value={formData.preferred_session} onChange={e => setFormData({...formData, preferred_session: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
@@ -1050,26 +1064,18 @@
                                         </div>
 
                                         {isAdmin && (
-                                            <>
-                                                <div className="space-y-1.5">
-                                                    <label className="text-xs font-bold text-slate-500 uppercase">同日二堂服事 <span className="text-slate-400 font-normal">(選填)</span></label>
-                                                    <select value={formData.dual_service_pref} onChange={e => setFormData({...formData, dual_service_pref: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
-                                                        <option value="0">無</option><option value="1">二堂同崗</option><option value="2">二堂異崗</option>
-                                                    </select>
-                                                </div>
-                                                <div className="space-y-1.5">
-                                                    <label className="text-xs font-bold text-slate-500 uppercase">新朋友關懷設定 <span className="text-slate-400 font-normal">(選填)</span></label>
-                                                    <select value={formData.newcomer_rule === null ? '' : formData.newcomer_rule} onChange={e => setFormData({...formData, newcomer_rule: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
-                                                        <option value="">預設(正常排班)</option><option value="1">主責</option><option value="2">禁排第二週</option><option value="3">主責 ＋ 禁排第二週</option>
-                                                    </select>
-                                                </div>
-                                            </>
+                                            <div className="space-y-1.5">
+                                                <label className="text-xs font-bold text-slate-500 uppercase">新朋友關懷設定 <span className="text-slate-400 font-normal">(選填)</span></label>
+                                                <select value={formData.newcomer_rule === null ? '' : formData.newcomer_rule} onChange={e => setFormData({...formData, newcomer_rule: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700">
+                                                    <option value="">預設(正常排班)</option><option value="1">主責</option><option value="2">禁排第二週</option><option value="3">主責 ＋ 禁排第二週</option>
+                                                </select>
+                                            </div>
                                         )}
                                     </div>
 
                                     {isAdmin && (
                                         <div className="space-y-2 bg-indigo-50/50 p-4 rounded-xl border border-indigo-100">
-                                            <label className="text-xs font-bold text-indigo-600 uppercase flex items-center gap-1.5"><User size={14}/> 綁定帳號 (登入用)</label>
+                                            <label className="text-xs font-bold text-indigo-600 flex items-center gap-1.5 flex-wrap"><User size={14}/> 帳號 <span className="text-[10px] text-indigo-400 font-normal">(忘記密碼需變更帳號，再重新綁定)</span></label>
                                             <input type="text" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full bg-white border border-indigo-200 rounded-xl px-4 py-3 sm:py-2.5 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 font-semibold text-slate-700" placeholder="電話號碼或電子郵件" />
                                         </div>
                                     )}
@@ -1172,7 +1178,7 @@
                                                 if (val && new Date(val).getDay() !== 0) { showMessage('error', '只能選週日'); setNewHolidayDate(''); return; }
                                                 setNewHolidayDate(val);
                                             }} className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-sky-500 focus:ring-2 w-full sm:w-auto font-bold text-slate-700" />
-                                            <input type="text" placeholder="輸入名稱 (例如: 特會)" value={newHolidayName} onChange={e => setNewHolidayName(e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-sky-500 focus:ring-2 font-bold text-slate-700 w-full" />
+                                            <input type="text" placeholder="輸入節日提醒" value={newHolidayName} onChange={e => setNewHolidayName(e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-sky-500 focus:ring-2 font-bold text-slate-700 w-full" />
                                             <button onClick={handleAddCustomHoliday} disabled={isLoading} className="bg-sky-500 hover:bg-sky-600 text-white font-bold px-4 py-3 rounded-xl active:scale-95 w-full sm:w-auto">新增</button>
                                         </div>
                                     </div>
@@ -1200,10 +1206,11 @@
                         </div>
                     )}
 
-                    {/* 全局通知 & 警告對話框 (保持原樣，僅調整樣式) */}
+                    {/* 全局通知 & 警告對話框 (優化手機換行顯示) */}
                     {message.text && (
-                        <div className={`fixed top-24 left-1/2 -translate-x-1/2 z-[80] px-5 py-3 rounded-2xl font-bold shadow-xl animate-fade-in flex items-center gap-2 whitespace-nowrap ${message.type === 'success' ? 'bg-slate-800 text-emerald-400' : 'bg-red-600 text-white'}`}>
-                            {message.type === 'success' ? <CheckCircle2 size={18}/> : <AlertCircle size={18}/>} {message.text}
+                        <div className={`fixed top-24 left-1/2 -translate-x-1/2 z-[80] px-5 py-3 rounded-2xl font-bold shadow-xl animate-fade-in flex items-start gap-2 max-w-[90vw] w-max ${message.type === 'success' ? 'bg-slate-800 text-emerald-400' : 'bg-red-600 text-white'}`}>
+                            <div className="shrink-0 mt-0.5">{message.type === 'success' ? <CheckCircle2 size={18}/> : <AlertCircle size={18}/>}</div>
+                            <div className="text-sm leading-snug break-words flex-1">{message.text}</div>
                         </div>
                     )}
 
